@@ -13,6 +13,7 @@ import br.com.sistema.model.ItemVenda;
 import br.com.sistema.model.Produtos;
 import br.com.sistema.model.Vendas;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
 
     Clientes cliente = new Clientes();
     DefaultTableModel carrinho;
+    ArrayList<Produtos> listaProdutos;
 
     public FrmPagamentos() {
         initComponents();
@@ -33,6 +35,18 @@ public class FrmPagamentos extends javax.swing.JFrame {
         txtdinheiro.setText("0");
         txtcheque.setText("0");
         txttroco.setText("0");
+    }
+    public FrmPagamentos( ArrayList<Produtos> listaProdutos ) {
+        initComponents();
+        this.listaProdutos = new ArrayList<>();
+        txtcartao.setText("0");
+        txtdinheiro.setText("0");
+        txtcheque.setText("0");
+        txttroco.setText("0");
+        // preenche uma lista com os itens da lista de compras
+        for(int i = 0; i< listaProdutos.size(); i++){
+            this.listaProdutos.add(listaProdutos.get(i));
+        }   
     }
 
     /**
@@ -279,7 +293,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
        /***********************************************************************/
          
         JOptionPane.showMessageDialog(null, "Venda Registrada com Sucesso!");
-
+        this.dispose();
 
     }//GEN-LAST:event_btnfinalizarActionPerformed
 

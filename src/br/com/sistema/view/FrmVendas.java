@@ -469,16 +469,16 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnpagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagamentoActionPerformed
-       //botao pagamento
-       FrmPagamentos telap = new FrmPagamentos();
-       telap.txttotal.setText(String.valueOf(total));
-       
-       telap.cliente = obj;
-       telap.carrinho = carrinho;
-       
-       telap.setVisible(true);
-       this.dispose();
 
+       //instancia uma tela de pagamento e passa como parametro a lista de produtos da tela
+       FrmPagamentos telPag = new FrmPagamentos();
+       telPag.txttotal.setText(String.valueOf(total));
+       
+       telPag.cliente = obj;
+       telPag.carrinho = carrinho;
+       
+       telPag.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_btnpagamentoActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
@@ -573,10 +573,10 @@ public class FrmVendas extends javax.swing.JFrame {
                 subtotal           
             });
             JOptionPane.showMessageDialog(null, "Produto adicionado");
-            //dao.atualizaEstoque((qtdEstoque - qtd), idProduto);
+         
         } else{
-            txtqtd.setText(Integer.toString(qtdEstoque));    
-            JOptionPane.showMessageDialog(null, "Quantidade insuficiente em estoque! Há "+qtdEstoque+" unidades em estoque","Aviso",JOptionPane.ERROR_MESSAGE);
+            txtqtd.setText(Integer.toString(qtdEstoque -(totalItensId) ));    
+            JOptionPane.showMessageDialog(null, "Quantidade insuficiente em estoque! Há "+(qtdEstoque -(totalItensId) )+" unidades em estoque","Aviso",JOptionPane.ERROR_MESSAGE);
         } 
     }//GEN-LAST:event_btnaddActionPerformed
 

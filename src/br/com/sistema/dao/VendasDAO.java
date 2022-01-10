@@ -175,9 +175,7 @@ public class VendasDAO {
     }
     
     public void atualizaEstoque(int qtd, int idProduto){
-        
         try{
-       
             //1 abre a conexao com o banco
             Connection con = new ConnectionFactory().getConnection();
             //2 cria o comando sql
