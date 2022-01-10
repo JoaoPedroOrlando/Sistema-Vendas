@@ -36,19 +36,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
         txtcheque.setText("0");
         txttroco.setText("0");
     }
-    public FrmPagamentos( ArrayList<Produtos> listaProdutos ) {
-        initComponents();
-        this.listaProdutos = new ArrayList<>();
-        txtcartao.setText("0");
-        txtdinheiro.setText("0");
-        txtcheque.setText("0");
-        txttroco.setText("0");
-        // preenche uma lista com os itens da lista de compras
-        for(int i = 0; i< listaProdutos.size(); i++){
-            this.listaProdutos.add(listaProdutos.get(i));
-        }   
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,7 +229,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
         txttroco.setText(String.valueOf(troco));
 
         Vendas objv = new Vendas();
-
+        System.out.println("Cliente id: "+ cliente.getId());
         //Dados do cliente (cliente_id)
         objv.setCliente(cliente);
 
@@ -269,12 +257,15 @@ public class FrmPagamentos extends javax.swing.JFrame {
 
             int qtd_estoque , qtd_comprada, qtd_atualizada;
             Produtos objp = new Produtos();
+            // baixar no estoque
             ProdutosDAO dao_produto = new ProdutosDAO();
-          
+            // cadastrar item de venda
             ItemVenda item = new ItemVenda();
+            // objeto venda
             item.setVenda(objv);
-
+            // id do produto
             objp.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
+            // salva produto
             item.setProduto(objp);
             item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
             item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
@@ -285,7 +276,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
             qtd_atualizada = qtd_estoque - qtd_comprada;
             
             dao_produto.baixaEstoque(objp.getId(), qtd_atualizada);         
-
+            
             ItemVendaDAO daoitem = new ItemVendaDAO();
             daoitem.cadastraItem(item);
 

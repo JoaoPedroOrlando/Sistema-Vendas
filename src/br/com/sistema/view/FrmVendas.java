@@ -469,12 +469,12 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnpagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagamentoActionPerformed
-
+       
        //instancia uma tela de pagamento e passa como parametro a lista de produtos da tela
        FrmPagamentos telPag = new FrmPagamentos();
        telPag.txttotal.setText(String.valueOf(total));
        
-       telPag.cliente = obj;
+       telPag.cliente = this.obj;
        telPag.carrinho = carrinho;
        
        telPag.setVisible(true);
@@ -551,7 +551,6 @@ public class FrmVendas extends javax.swing.JFrame {
             if (obj.getId() ==  idProduto)
             totalItensId += obj.getQtd_estoque();   
         } 
-        System.out.println("totalItensId: "+ totalItensId);
         // se há quantidade em estoque, adiciona na tabela
         if (qtd <= qtdEstoque && qtd!= 0 && (totalItensId + qtd) <= qtdEstoque){
             // botao add item
@@ -572,8 +571,7 @@ public class FrmVendas extends javax.swing.JFrame {
                 txtpreco.getText(),
                 subtotal           
             });
-            JOptionPane.showMessageDialog(null, "Produto adicionado");
-         
+            
         } else{
             txtqtd.setText(Integer.toString(qtdEstoque -(totalItensId) ));    
             JOptionPane.showMessageDialog(null, "Quantidade insuficiente em estoque! Há "+(qtdEstoque -(totalItensId) )+" unidades em estoque","Aviso",JOptionPane.ERROR_MESSAGE);
@@ -586,7 +584,7 @@ public class FrmVendas extends javax.swing.JFrame {
         ClientesDAO dao = new ClientesDAO();
 
         obj = dao.buscaporcpf(txtcpf.getText());
-
+        this.obj = obj;
         txtnome.setText(obj.getNome());
     }//GEN-LAST:event_btnbuscaclienteActionPerformed
 
