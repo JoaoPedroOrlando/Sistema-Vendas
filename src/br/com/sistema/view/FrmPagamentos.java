@@ -13,6 +13,7 @@ import br.com.sistema.model.ItemVenda;
 import br.com.sistema.model.Produtos;
 import br.com.sistema.model.Vendas;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
 
     Clientes cliente = new Clientes();
     DefaultTableModel carrinho;
+    ArrayList<Produtos> listaProdutos;
 
     public FrmPagamentos() {
         initComponents();
@@ -34,7 +36,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
         txtcheque.setText("0");
         txttroco.setText("0");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -227,7 +229,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
         txttroco.setText(String.valueOf(troco));
 
         Vendas objv = new Vendas();
-
+        System.out.println("Cliente id: "+ cliente.getId());
         //Dados do cliente (cliente_id)
         objv.setCliente(cliente);
 
@@ -255,12 +257,15 @@ public class FrmPagamentos extends javax.swing.JFrame {
 
             int qtd_estoque , qtd_comprada, qtd_atualizada;
             Produtos objp = new Produtos();
+            // baixar no estoque
             ProdutosDAO dao_produto = new ProdutosDAO();
-          
+            // cadastrar item de venda
             ItemVenda item = new ItemVenda();
+            // objeto venda
             item.setVenda(objv);
-
+            // id do produto
             objp.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
+            // salva produto
             item.setProduto(objp);
             item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
             item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
@@ -271,7 +276,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
             qtd_atualizada = qtd_estoque - qtd_comprada;
             
             dao_produto.baixaEstoque(objp.getId(), qtd_atualizada);         
-
+            
             ItemVendaDAO daoitem = new ItemVendaDAO();
             daoitem.cadastraItem(item);
 
@@ -279,7 +284,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
        /***********************************************************************/
          
         JOptionPane.showMessageDialog(null, "Venda Registrada com Sucesso!");
-
+        this.dispose();
 
     }//GEN-LAST:event_btnfinalizarActionPerformed
 
