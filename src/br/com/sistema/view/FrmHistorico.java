@@ -10,10 +10,12 @@ import br.com.sistema.dao.VendasDAO;
 import br.com.sistema.model.ItemVenda;
 import br.com.sistema.model.Produtos;
 import br.com.sistema.model.Vendas;
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +29,7 @@ public class FrmHistorico extends javax.swing.JFrame {
      */
     public FrmHistorico() {
         initComponents();
+        btnrelatorio.setVisible(false);
     }
 
     /**
@@ -46,6 +49,7 @@ public class FrmHistorico extends javax.swing.JFrame {
         txtdatafim = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         btnpesquisar = new javax.swing.JButton();
+        btnrelatorio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHistorico = new javax.swing.JTable();
 
@@ -86,6 +90,11 @@ public class FrmHistorico extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtdatainicio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtdatainicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdatainicioActionPerformed(evt);
+            }
+        });
         txtdatainicio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtdatainicioKeyPressed(evt);
@@ -115,6 +124,17 @@ public class FrmHistorico extends javax.swing.JFrame {
             }
         });
 
+        btnrelatorio.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btnrelatorio.setText("Relatório");
+        btnrelatorio.setToolTipText("");
+        btnrelatorio.setFocusable(false);
+        btnrelatorio.setOpaque(true);
+        btnrelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -129,7 +149,9 @@ public class FrmHistorico extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtdatafim, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnpesquisar)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnrelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnpesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(75, 75, 75))
         );
         jPanel2Layout.setVerticalGroup(
@@ -144,7 +166,9 @@ public class FrmHistorico extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnrelatorio)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabelaHistorico.setModel(new javax.swing.table.DefaultTableModel(
@@ -180,7 +204,7 @@ public class FrmHistorico extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,6 +245,8 @@ public class FrmHistorico extends javax.swing.JFrame {
                 });
 
             }
+            //mostra o botao de relatorio
+            btnrelatorio.setVisible(true);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Digite duas datas como intervalo!");
@@ -262,6 +288,22 @@ public class FrmHistorico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tabelaHistoricoMouseClicked
 
+    private void btnrelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrelatorioActionPerformed
+        String dataInicio = txtdatainicio.getText();
+        String dataFim = txtdatafim.getText();
+        MessageFormat header = new MessageFormat("Histórico de Vendas - período: "+dataInicio+" "+" "+dataFim);
+        MessageFormat footer = new MessageFormat("");
+        try{
+            tabelaHistorico.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Cannot create the report" + e.getMessage() );
+        }
+    }//GEN-LAST:event_btnrelatorioActionPerformed
+
+    private void txtdatainicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdatainicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdatainicioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,6 +341,7 @@ public class FrmHistorico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnpesquisar;
+    private javax.swing.JButton btnrelatorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel9;

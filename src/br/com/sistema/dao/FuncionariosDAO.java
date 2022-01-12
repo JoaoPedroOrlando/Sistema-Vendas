@@ -298,12 +298,12 @@ public class FuncionariosDAO {
 
                     JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema");
                     Frmmenu tela = new Frmmenu();
-                     tela.setUsuarioLogado(rs.getString("nome"));
+                    tela.setUsuarioLogado(rs.getString("nome"));
                     
                     tela.setVisible(true);
                 } 
 
-//Caso o usuario seja do tipo limitado 
+                //Caso o usuario seja do tipo limitado 
                 else if (rs.getString("nivel_acesso").equals("Usuário")) {
                     
                     JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema");

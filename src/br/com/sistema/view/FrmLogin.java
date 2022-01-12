@@ -77,11 +77,18 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel5.setText("E-mail:");
 
         txtemail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtemail.setText("fedRico@hotmail.com");
+        txtemail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtemailActionPerformed(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel18.setText("Senha:");
 
         txtsenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtsenha.setText("123");
 
         btnentrar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnentrar.setText("ENTRAR");
@@ -154,24 +161,22 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnentrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnentrarActionPerformed
         // Botao entrar
-        try {
-            String email, senha;
+         String email, senha;
            
-            email = txtemail.getText();
-            //senha = txtsenha.getText();
-            senha = new String(txtsenha.getPassword());
-            
-            FuncionariosDAO dao = new FuncionariosDAO();
-            
-            
-            dao.efetuaLogin(email, senha);
-            
-            
-            this.dispose();
-            
+        email = txtemail.getText();
+        //senha = txtsenha.getText();
+        senha = new String(txtsenha.getPassword());
+
+        FuncionariosDAO dao = new FuncionariosDAO();
+
+        try {
+            dao.efetuaLogin(email, senha);        
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "erro");
+            JOptionPane.showMessageDialog(null, "erro " + e);
         }
+        
+        this.dispose();
+    
     }//GEN-LAST:event_btnentrarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -187,6 +192,10 @@ public class FrmLogin extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_btnsairActionPerformed
+
+    private void txtemailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtemailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtemailActionPerformed
 
     /**
      * @param args the command line arguments
