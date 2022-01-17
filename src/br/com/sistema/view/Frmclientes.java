@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -113,6 +114,7 @@ public class Frmclientes extends javax.swing.JFrame {
         btnsalvar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        botaoseleciona = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
@@ -544,6 +546,13 @@ public class Frmclientes extends javax.swing.JFrame {
             }
         });
 
+        botaoseleciona.setText("Selecionar para excluir");
+        botaoseleciona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoselecionaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -562,6 +571,8 @@ public class Frmclientes extends javax.swing.JFrame {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoseleciona)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -575,8 +586,10 @@ public class Frmclientes extends javax.swing.JFrame {
                     .addComponent(btnnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoseleciona, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -704,28 +717,33 @@ public class Frmclientes extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // Carrega a lista
         listar();
+        if(botaoseleciona.getText().equals("Cancelar eliminação")){
+        jButton4.setVisible(true);
+        }else
+        jButton4.setVisible(false);
 
     }//GEN-LAST:event_formWindowActivated
 
     private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
         //Pega os dados
-        aba_dados.setSelectedIndex(0);
+        if(!botaoseleciona.getText().equals("Cancelar eliminação")){
+            aba_dados.setSelectedIndex(0);
 
-        txtcodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 0).toString());
-        txtnome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 1).toString());
-        txtrg.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 2).toString());
-        txtcpf.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 3).toString());
-        txtemail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 4).toString());
-        txtfixo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5).toString());
-        txtcel.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 6).toString());
-        txtcep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 7).toString());
-        txtend.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 8).toString());
-        txtnumero.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 9).toString());
-        txtcomplemento.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 10).toString());
-        txtbairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 11).toString());
-        txtcidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 12).toString());
-        cbuf.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 13).toString());
-
+            txtcodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 0).toString());
+            txtnome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 1).toString());
+            txtrg.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 2).toString());
+            txtcpf.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 3).toString());
+            txtemail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 4).toString());
+            txtfixo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5).toString());
+            txtcel.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 6).toString());
+            txtcep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 7).toString());
+            txtend.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 8).toString());
+            txtnumero.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 9).toString());
+            txtcomplemento.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 10).toString());
+            txtbairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 11).toString());
+            txtcidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 12).toString());
+            cbuf.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 13).toString());
+        }
 
     }//GEN-LAST:event_tabelaClientesMouseClicked
 
@@ -761,15 +779,30 @@ public class Frmclientes extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // botao excluir
+        int[] sellias = this.tabelaClientes.getSelectedRows();
+        if(sellias.length < 1){
+        JOptionPane.showMessageDialog(null, "selecione um camppo para excluir");
+        
+        }else{
+       
+            int[] ides = new int[sellias.length];
+            for(int i = 0; i < sellias.length; i++){
+                ides[i] = Integer.parseInt((this.tabelaClientes.getValueAt(sellias[i], 0)).toString());
+            }
 
-        Clientes obj = new Clientes();
+            for(int j = 0; j < ides.length; j++){
+                Clientes obj = new Clientes();
 
-        obj.setId(Integer.parseInt(txtcodigo.getText()));
+                obj.setId(ides[j]);
 
-        ClientesDAO dao = new ClientesDAO();
+                ClientesDAO dao = new ClientesDAO();
 
-        dao.excluirCliente(obj);
-        new Utilitarios().LimpaTela(painel_dados);
+                dao.excluirCliente(obj);
+            }
+            JOptionPane.showMessageDialog(null, "exclusão bem sucedida");
+            new Utilitarios().LimpaTela(painel_dados);
+        }
+        
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -812,6 +845,31 @@ public class Frmclientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtrgActionPerformed
 
+    private void botaoselecionaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoselecionaActionPerformed
+        // TODO add your handling code here:
+         if(this.botaoseleciona.getText().equals("Selecionar para excluir")){
+            this.botaoseleciona.setText("Cancelar eliminação");
+            aba_dados.setSelectedIndex(1);
+
+            this.jButton4.setVisible(true);
+            this.jButton3.setVisible(false);
+            this.btnsalvar.setVisible(false);
+            this.btnnovo.setVisible(false);
+
+            this.tabelaClientes.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        }else{
+            this.botaoseleciona.setText("Selecionar para excluir");
+
+            this.jButton4.setVisible(false);
+            this.jButton3.setVisible(true);
+            this.btnsalvar.setVisible(true);
+            this.btnnovo.setVisible(true);
+
+            this.tabelaClientes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        }
+    }//GEN-LAST:event_botaoselecionaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -850,6 +908,7 @@ public class Frmclientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane aba_dados;
+    private javax.swing.JButton botaoseleciona;
     private javax.swing.JButton btnbusca;
     private javax.swing.JButton btnnovo;
     private javax.swing.JButton btnpesquisar;

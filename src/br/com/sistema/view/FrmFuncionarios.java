@@ -750,7 +750,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         obj.setCpf(txtcpf.getText());
         obj.setEmail(txtemail.getText());
 
-        obj.setSenha(txtsenha.getText());
+        obj.setSenha(String.valueOf(new String(txtsenha.getPassword()).hashCode()));
         obj.setCargo(txtcargo.getText());
         obj.setNivel_acesso(cbnivel.getSelectedItem().toString());
 
@@ -788,7 +788,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         txtrg.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 2).toString());
         txtcpf.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 3).toString());
         txtemail.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 4).toString());
-        txtsenha.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 5).toString());
+        //txtsenha.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 5).toString());
         txtcargo.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 6).toString());
         cbnivel.setSelectedItem(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 7).toString());
         txtfixo.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 8).toString());
@@ -814,7 +814,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         obj.setCpf(txtcpf.getText());
         obj.setEmail(txtemail.getText());
 
-        obj.setSenha(txtsenha.getText());
+        obj.setSenha(String.valueOf(new String(txtsenha.getPassword()).hashCode()));
         obj.setCargo(txtcargo.getText());
         obj.setNivel_acesso(cbnivel.getSelectedItem().toString());
 

@@ -77,7 +77,6 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel5.setText("E-mail:");
 
         txtemail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtemail.setText("fedRico@hotmail.com");
         txtemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtemailActionPerformed(evt);
@@ -88,7 +87,6 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel18.setText("Senha:");
 
         txtsenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        txtsenha.setText("123");
 
         btnentrar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         btnentrar.setText("ENTRAR");
@@ -166,17 +164,19 @@ public class FrmLogin extends javax.swing.JFrame {
         email = txtemail.getText();
         //senha = txtsenha.getText();
         senha = new String(txtsenha.getPassword());
-
+        senha = String.valueOf(senha.hashCode());
         FuncionariosDAO dao = new FuncionariosDAO();
-
+        
         try {
-            dao.efetuaLogin(email, senha);        
+            
+            int entrou = dao.efetuaLogin(email, senha);
+            if (entrou == 1){
+                this.dispose();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "erro " + e);
         }
-        
-        this.dispose();
-    
+     
     }//GEN-LAST:event_btnentrarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

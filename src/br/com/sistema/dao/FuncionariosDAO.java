@@ -129,7 +129,7 @@ public class FuncionariosDAO {
             stmt.execute();
             stmt.close();
 
-            JOptionPane.showMessageDialog(null, "Excluido com Sucesso!");
+            //JOptionPane.showMessageDialog(null, "Excluido com Sucesso!");
 
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
@@ -279,7 +279,8 @@ public class FuncionariosDAO {
     }
 
     //Metodo efetuaLogin
-    public void efetuaLogin(String email, String senha ) {
+    public int efetuaLogin(String email, String senha ) {
+        
         try {
 
             //1 passo - SQL
@@ -294,11 +295,11 @@ public class FuncionariosDAO {
                 //Usuario logou
 
                 //Caso o usuario seja do tipo admin
-                if (rs.getString("nivel_acesso").equals("Admin")) {
+                if (rs.getString("nivel_acesso").equals("Administrador")) {
 
                     JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema");
                     Frmmenu tela = new Frmmenu();
-                    tela.setUsuarioLogado(rs.getString("nome"));
+                     tela.setUsuarioLogado(rs.getString("nome"));
                     
                     tela.setVisible(true);
                 } 
@@ -317,18 +318,23 @@ public class FuncionariosDAO {
                     tela.setVisible(true);
 
                 }
-
+                    return 1;
             } else {
                 //Dados incorretos
                 JOptionPane.showMessageDialog(null, "Dados incorretos!");
-                new FrmLogin().setVisible(true);
+               return 0;
 
             }
 
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro : " + erro);
+            return 0;
         }
 
     }
 
+    
+    
+    
+    
 }
