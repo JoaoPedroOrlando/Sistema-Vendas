@@ -11,7 +11,7 @@ import br.com.sistema.model.Utilitarios;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
-
+import br.com.sistema.model.ValidaCamposLetras;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -87,7 +87,7 @@ public class Frmclientes extends javax.swing.JFrame {
         btnbusca = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtcodigo = new javax.swing.JTextField();
-        txtnome = new javax.swing.JTextField();
+        txtnome = new ValidaCamposLetras();
         txtemail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtend = new javax.swing.JTextField();

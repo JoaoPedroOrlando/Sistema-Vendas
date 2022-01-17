@@ -9,6 +9,7 @@ import br.com.sistema.dao.ClientesDAO;
 import br.com.sistema.dao.FuncionariosDAO;
 import br.com.sistema.model.Clientes;
 import br.com.sistema.model.Funcionarios;
+import br.com.sistema.model.ValidaCamposLetras;
 import br.com.sistema.model.Utilitarios;
 import java.awt.Color;
 import java.awt.Component;
@@ -91,7 +92,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         btnbusca = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtcodigo = new javax.swing.JTextField();
-        txtnome = new javax.swing.JTextField();
+        txtnome = new ValidaCamposLetras();
         txtemail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtend = new javax.swing.JTextField();

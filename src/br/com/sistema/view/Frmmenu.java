@@ -8,6 +8,7 @@ package br.com.sistema.view;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -275,10 +276,11 @@ public class Frmmenu extends javax.swing.JFrame {
 
     private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
 
-        int op;
-
-        op = JOptionPane.showConfirmDialog(null, "Você tem certeza que desja sair?");
-
+        JFrame fram = new JFrame();
+        String[] opcaos = new String[2];
+        opcaos[0] = "sair";
+        opcaos[1] = "ficar";
+        int op = JOptionPane.showOptionDialog(fram.getContentPane(), "voce deseja sair?", "", 0, JOptionPane.QUESTION_MESSAGE, null, opcaos, null);
         if (op == 0) {
             System.exit(0);
         }
