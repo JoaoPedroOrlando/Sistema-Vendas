@@ -124,7 +124,7 @@ public class ClientesDAO {
      *
      * @param obj
      */
-    public void excluirCliente(Clientes obj) {
+    public String excluirCliente(Clientes obj) {
         try {
 
             //1 passo  - criar o comando sql
@@ -137,11 +137,19 @@ public class ClientesDAO {
             //3 passo - executar o comando sql
             stmt.execute();
             stmt.close();
+            return("excluido");
 
-            JOptionPane.showMessageDialog(null, "Excluido com Sucesso!");
+         
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            String retorno = new String();    
+            retorno = erro.toString();
+            
+            if(retorno.equals("java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`bdvendas`.`tb_vendas`, CONSTRAINT `tb_vendas_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `tb_clientes` (`id`))"))
+            {
+            return("não foi possivel excluir esse cliente porque existem vendas ligadas a ele");
+            } 
+           return retorno;
 
         }
 

@@ -12,10 +12,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import br.com.sistema.model.ValidaCamposLetras;
+import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -784,11 +787,13 @@ public class Frmclientes extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "selecione um camppo para excluir");
         
         }else{
-       
+            String resultado = new String();
+            resultado = "";
             int[] ides = new int[sellias.length];
             for(int i = 0; i < sellias.length; i++){
                 ides[i] = Integer.parseInt((this.tabelaClientes.getValueAt(sellias[i], 0)).toString());
             }
+            
 
             for(int j = 0; j < ides.length; j++){
                 Clientes obj = new Clientes();
@@ -797,9 +802,16 @@ public class Frmclientes extends javax.swing.JFrame {
 
                 ClientesDAO dao = new ClientesDAO();
 
-                dao.excluirCliente(obj);
+                resultado +=  "id do cliente:"+ides[j]+" resultado da exclusão:"+ dao.excluirCliente(obj) +"\n";
             }
-            JOptionPane.showMessageDialog(null, "exclusão bem sucedida");
+            
+            
+            JTextArea area = new JTextArea(resultado);
+            JScrollPane painelRolante = new JScrollPane(area);
+            painelRolante.setPreferredSize( new Dimension(500,500));
+            
+            
+            JOptionPane.showMessageDialog(null, painelRolante);
             new Utilitarios().LimpaTela(painel_dados);
         }
         

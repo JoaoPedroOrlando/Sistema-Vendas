@@ -12,13 +12,17 @@ import br.com.sistema.model.Fornecedores;
 import br.com.sistema.model.Utilitarios;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -112,6 +116,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
         btnsalvar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        botaoseleciona = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
@@ -517,6 +522,13 @@ public class FrmFornecedores extends javax.swing.JFrame {
             }
         });
 
+        botaoseleciona.setText("Selecionar para excluir");
+        botaoseleciona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoselecionaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -535,6 +547,8 @@ public class FrmFornecedores extends javax.swing.JFrame {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoseleciona)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -544,11 +558,12 @@ public class FrmFornecedores extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnnovo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnnovo, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(btnsalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(botaoseleciona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -672,12 +687,17 @@ public class FrmFornecedores extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // Carrega a lista
-        listar();
+          listar();
+        if(botaoseleciona.getText().equals("Cancelar eliminação")){
+        jButton4.setVisible(true);
+        }else
+        jButton4.setVisible(false);
 
     }//GEN-LAST:event_formWindowActivated
 
     private void tabelaFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFornecedoresMouseClicked
         //Pega os dados
+        if(!botaoseleciona.getText().equals("Cancelar eliminação")){
         jTabbedPane1.setSelectedIndex(0);
 
         txtcodigo.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 0).toString());
@@ -694,7 +714,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
         txtcidade.setText(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 11).toString());
         cbuf.setSelectedItem(tabelaFornecedores.getValueAt(tabelaFornecedores.getSelectedRow(), 12).toString());
 
-
+        }
     }//GEN-LAST:event_tabelaFornecedoresMouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -729,14 +749,35 @@ public class FrmFornecedores extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // botao excluir
 
-        Fornecedores obj = new Fornecedores();
+        int[] sellias = this.tabelaFornecedores.getSelectedRows();
+        if(sellias.length < 1){
+        JOptionPane.showMessageDialog(null, "selecione um camppo para excluir");
+        
+        }else{
+       
+            int[] ides = new int[sellias.length];
+            for(int i = 0; i < sellias.length; i++){
+                ides[i] = Integer.parseInt((this.tabelaFornecedores.getValueAt(sellias[i], 0)).toString());
+            }
+            String texto = new String();
+            texto = "";
+            for(int j = 0; j < ides.length; j++){
+               Fornecedores obj = new Fornecedores();
 
-        obj.setId(Integer.parseInt(txtcodigo.getText()));
+                obj.setId(ides[j]);
 
-        FornecedoresDAO dao = new FornecedoresDAO();
+                FornecedoresDAO dao = new FornecedoresDAO();
 
-        dao.excluirFornecedor(obj);
-        new Utilitarios().LimpaTela(painel_dados);
+                texto +="id do fornecedor:  "+ides[j]+"\n resultado da exclusão: "+ dao.excluirFornecedor(obj)+"\n\n";
+            }
+            JTextArea area = new JTextArea(texto);
+            JScrollPane painelRolante = new JScrollPane(area);
+            painelRolante.setPreferredSize(new Dimension(500,500));
+            
+            
+            JOptionPane.showMessageDialog(null, painelRolante);
+            new Utilitarios().LimpaTela(painel_dados);
+        }
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -773,6 +814,31 @@ public class FrmFornecedores extends javax.swing.JFrame {
         new Utilitarios().LimpaTela(painel_dados);
 
     }//GEN-LAST:event_btnnovoActionPerformed
+
+    private void botaoselecionaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoselecionaActionPerformed
+        // TODO add your handling code here:
+         if(this.botaoseleciona.getText().equals("Selecionar para excluir")){
+            this.botaoseleciona.setText("Cancelar eliminação");
+            jTabbedPane1.setSelectedIndex(1);
+
+            this.jButton4.setVisible(true);
+            this.jButton3.setVisible(false);
+            this.btnsalvar.setVisible(false);
+            this.btnnovo.setVisible(false);
+
+            this.tabelaFornecedores.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        }else{
+            this.botaoseleciona.setText("Selecionar para excluir");
+
+            this.jButton4.setVisible(false);
+            this.jButton3.setVisible(true);
+            this.btnsalvar.setVisible(true);
+            this.btnnovo.setVisible(true);
+
+            this.tabelaFornecedores.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+         }
+        
+    }//GEN-LAST:event_botaoselecionaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -811,6 +877,7 @@ public class FrmFornecedores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoseleciona;
     private javax.swing.JButton btnbusca;
     private javax.swing.JButton btnnovo;
     private javax.swing.JButton btnpesquisar;

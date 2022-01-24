@@ -65,7 +65,7 @@ public class FornecedoresDAO {
     }
 
     //metodo excluir fornecedor
-    public void excluirFornecedor(Fornecedores obj) {
+    public String excluirFornecedor(Fornecedores obj) {
         try {
 
             //1 passo  - criar o comando sql
@@ -78,12 +78,18 @@ public class FornecedoresDAO {
             //3 passo - executar o comando sql
             stmt.execute();
             stmt.close();
-
-            JOptionPane.showMessageDialog(null, "Excluido com Sucesso!");
+            return("excluido");
+            
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro: " + erro);
-
+            
+            String retorno = new String();
+            retorno = erro.toString();
+            if(retorno.equals("java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`bdvendas`.`tb_produtos`, CONSTRAINT `tb_produtos_ibfk_1` FOREIGN KEY (`for_id`) REFERENCES `tb_fornecedores` (`id`))"))
+            {
+            return "esse fornecedor não pode ser excluido porque possui vendas ligadas a um ou mais de seus produtos";
+            }
+            return retorno;
         }
 
     }

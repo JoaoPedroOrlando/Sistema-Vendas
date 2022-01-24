@@ -83,7 +83,7 @@ public class ProdutosDAO {
 
     }
 
-    public void excluir(Produtos obj) {
+    public String excluir(Produtos obj) {
         try {
 
             String sql = "delete from tb_produtos  where id=?";
@@ -94,13 +94,19 @@ public class ProdutosDAO {
 
             stmt.execute();
             stmt.close();
-
-            JOptionPane.showMessageDialog(null, "Produto excluido com Sucesso!");
+            return("excluido");
+           
 
         } catch (Exception erro) {
 
-            JOptionPane.showMessageDialog(null, "Erro : " + erro);
-
+            String retorno = new String();
+            retorno = erro.toString();
+            if(retorno.equals("java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`bdvendas`.`tb_itensvendas`, CONSTRAINT `tb_itensvendas_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `tb_produtos` (`id`))"))
+            {
+            return("esse produto não pode ser excluido pois existem vendas associadas a ele");
+            }
+            return retorno;
+            
         }
 
     }
